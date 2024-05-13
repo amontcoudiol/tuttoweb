@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Recherche d'équipage</title>
+</head>
+<body>
+    <h1>Recherche d'équipage</h1>
+    <form method="post">
+        <label for="message">Ton message (mets ton num pour qu'on puisse te contacter wesh)</label>
+        <textarea id="message" name="message" required></textarea><br>
+        <button type="submit">Poster mon message</button>
+    </form>
+    <h2>Messages existants:</h2>
+    <ul>
+        {% for message in search_messages %}
+        <li>{{ message.user.username }}: {{ message.message }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

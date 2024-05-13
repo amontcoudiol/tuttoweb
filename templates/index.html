@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenue sur le site du festival!</title>
+</head>
+<body>
+    <nav>
+        {% if not current_user.is_authenticated %}
+        <a href="{{ url_for('signup') }}">Inscription</a>
+        <a href="{{ url_for('login') }}">Connexion</a>
+        {% else %}
+        <a href="{{ url_for('logout') }}">Déconnexion</a>
+        <a href="{{ url_for('create_crew') }}">Créer un équipage</a>
+        {% endif %}
+    </nav>
+    <h1>Bienvenue sur le site du festival!</h1>
+    {% for crew in crews %}
+    <div>
+        <h2>{{ crew.name }}</h2>
+        <p>Description: {{ crew.description }}</p>
+        <img src="{{ crew.photo }}" alt="Photo de l'équipage">
+        {% if crew.mp3_file %}
+        <audio controls>
+            <source src="{{ url_for('uploaded_file', filename=crew.mp3_file) }}" type="audio/mpeg">
+            Votre navigateur ne supporte pas l'élément audio.
+        </audio>
+        {% endif %}
+        <h3>Membres de l'équipage:</h3>
+        <ul>
+            {% for member in crew.members %}
+            <li>{{ member.username }}</li>
+            {% endfor %}
+        </ul>
+        {% if current_user.is_authenticated and current_user.crew_id == crew.id %}
+        <a href="{{ url_for('edit_crew', crew_id=crew.id) }}">Modifier l'équipage</a>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+</body>
+</html>

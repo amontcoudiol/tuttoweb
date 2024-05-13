@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Inscription</title>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.getElementById('signup-form');
+        var crewSelect = document.getElementById('crew');
+        
+        form.onsubmit = function(event) {
+            var crewValue = crewSelect.value;
+            if (crewValue === 'create_crew' || crewValue === 'search_crew') {
+                // Marquer un champ caché pour indiquer la redirection après inscription
+                document.getElementById('redirect_after_signup').value = crewValue;
+            }
+        };
+    });
+    </script>
+</head>
+<body>
+    <h1>Inscription</h1>
+    <form id="signup-form" method="post">
+        <label for="username">Nom d'utilisateur:</label>
+        <input type="text" id="username" name="username" required><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+        <label for="password">Mot de passe:</label>
+        <input type="password" id="password" name="password" required><br>
+        <label for="crew">Équipage:</label>
+        <select name="crew" id="crew" required>
+            <option value="">Choisir une option</option>
+            <option value="create_crew">Je souhaite créer mon équipage</option>
+            <option value="search_crew">Je cherche un équipage</option>
+            {% for crew in crews %}
+            <option value="{{ crew.id }}">{{ crew.name }}</option>
+            {% endfor %}
+        </select><br>
+        <button type="submit">S'inscrire</button>
+        <input type="hidden" id="redirect_after_signup" name="redirect_after_signup">
+    </form>
+</body>
+</html>

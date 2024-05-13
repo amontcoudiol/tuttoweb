@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Éditer l'équipage</title>
+</head>
+<body>
+    <h1>Éditer l'équipage: {{ crew.name }}</h1>
+    <form method="post">
+        <label for="name">Nom de l'équipage:</label>
+        <input type="text" id="name" name="name" value="{{ crew.name }}" required><br>
+        <label for="photo">Photo (URL):</label>
+        <input type="text" id="photo" name="photo" value="{{ crew.photo }}"><br>
+        <label for="mp3_file">Fichier MP3 (URL):</label>
+        <input type="text" id="mp3_file" name="mp3_file" value="{{ crew.mp3_file }}"><br>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description">{{ crew.description }}</textarea><br>
+        <button type="submit">Mettre à jour</button>
+    </form>
+</body>
+</html>
